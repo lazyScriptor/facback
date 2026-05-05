@@ -5,12 +5,19 @@ const cors = require("cors");
 const app = express();
 
 // 1. Setup CORS to allow React to see the session headers
+// In your proxy.js on the server
 app.use(
   cors({
-    origin: "https://geargrid-frontend.vercel.app/",
-    exposedHeaders: ["X-Final-URL"],
+    // Remove the trailing slash from your Vercel URL
+    origin: "https://geargrid-frontend.vercel.app",
+    // Change this to lowercase 'l' to match what Nginx/Express is actually sending
+    exposedHeaders: ["X-Final-Url"],
   }),
 );
+
+// ... inside your app.use('/api/faculty' ...
+// Change the header name to match standard lowercase normalization
+res.set("X-Final-Url", response.request.res.responseUrl);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
