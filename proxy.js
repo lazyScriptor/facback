@@ -7,6 +7,7 @@ const app = express();
 // 1. Setup CORS to allow React to see the session headers
 app.use(
   cors({
+    origin: "https://geargrid-frontend.vercel.app/",
     exposedHeaders: ["X-Final-URL"],
   }),
 );
